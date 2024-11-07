@@ -6,6 +6,7 @@ body {
 .socials-container {
   position: absolute;
   right: 0;
+  top: 6px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -18,7 +19,7 @@ body {
 
 .socials-container a {
   color: white;
-  padding: 6px 12px;
+  padding: 4px 12px;
 }
 
 .photo-holder {
@@ -153,6 +154,7 @@ canvas {
 @media (min-width: 924px) {
   .socials-container {
     flex-direction: row;
+    top: 0;
     left: 0;
     right: unset;
     padding: 8px;
@@ -179,6 +181,7 @@ canvas {
 
   .text-container {
     text-align: center;
+    padding-top: 24px;
   }
 
   .button-container {
