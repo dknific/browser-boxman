@@ -1,0 +1,193 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', Arial;
+}
+
+.socials-container {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background: transparent;
+  z-index: 99;
+  opacity: 0;
+  animation: introFadeIn 1s linear forwards;
+  animation-delay: 1.5s;
+}
+
+.socials-container a {
+  color: white;
+  padding: 6px 12px;
+}
+
+.photo-holder {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-image: url("/apple-touch-icon.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.text-container {
+  position: absolute;
+  color: black;
+  width: 100%;
+  text-align: left;
+  padding-top: 8px;
+  opacity: 0;
+  animation: introFadeIn 1s linear forwards;
+  animation-delay: 1.5s;
+}
+
+h1, h2 {
+  padding-left: 12px;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+canvas {
+  width: 100% !important;
+}
+
+.button-container {
+  width: 100%;
+  position: absolute;
+  height: 44px;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 14px;
+  opacity: 0;
+  animation: introFadeIn 1s linear forwards;
+  animation-delay: 1.5s;
+}
+
+.button-container p {
+  font-size: 32px;
+  color: #00000024;
+  margin: 0 8px;
+}
+
+.custom-button {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #fa6400;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  padding: 8px 10px;
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.custom-button:hover,
+.custom-button:focus {
+  background-color: #fb8332;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.custom-button:hover {
+  transform: translateY(-1px);
+}
+
+.custom-button:active {
+  background-color: #c85000;
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
+}
+
+.custom-button.walk-btn {
+  background-color: green;
+}
+.custom-button.walk-btn:hover {
+  background-color: #3da23d
+}
+
+.custom-button.idle-btn {
+  background-color: #7878a5;
+}
+.custom-button.idle-btn:hover {
+  background-color: #8585b4;
+}
+
+.custom-button.run-btn {
+  background-color: #d3721e;
+}
+.custom-button.run-btn:hover {
+  background-color: #f78a2c;
+}
+
+.disabled-btn {
+  opacity: 0.4;
+}
+
+@media (min-width: 924px) {
+  .socials-container {
+    flex-direction: row;
+    left: 0;
+    right: unset;
+    padding: 8px;
+  }
+
+  .socials-container a {
+    padding: 0 3px;
+  }
+
+  .home-link:hover {
+    opacity: 0.6;
+  }
+  h1 {
+    font-size: 52px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  a:hover svg path {
+    fill: #eeeeee;
+  }
+
+  .text-container {
+    text-align: center;
+  }
+
+  .button-container {
+    padding: 0;
+    bottom: 40px;
+  }
+}
+
+@keyframes introFadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
