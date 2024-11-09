@@ -14,7 +14,7 @@ Bootstrapped using create-three-app by [Davey Knific](https://www.github.com/dkn
 - [NPM](https://www.npmjs.com/) for dependency management
 - [Vite.js](https://github.com/vitejs) for scaffolding, bundling, and building
 
-## Run this project in your local environment:
+## Run This Repo in Your Local Environment:
 
 First, make sure all required Node packages are installed:
 
@@ -24,3 +24,7 @@ In the project's root directory, run:
 
     npx vite
 
+## Build for Production:
+
+    npx vite build
+    
