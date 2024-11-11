@@ -80,20 +80,29 @@ function handleActionClick(actionName) {
   if (actionName === 'IDLE') {
     idleAnimation.play();
     IDLE_BTN.classList.add('disabled-btn');
+    IDLE_BTN.disabled = true;
     RUN_BTN.classList.remove('disabled-btn');
+    RUN_BTN.disabled = false;
     WALK_BTN.classList.remove('disabled-btn');
+    WALK_BTN.disabled = false;
     appState = { ...appState, currentAnimation: idleAnimation};
   } else if (actionName === 'WALK') {
     walkAnimation.play();
     WALK_BTN.classList.add('disabled-btn');
+    WALK_BTN.disabled = true;
     IDLE_BTN.classList.remove('disabled-btn');
+    IDLE_BTN.disabled = false;
     RUN_BTN.classList.remove('disabled-btn');
+    RUN_BTN.disabled = false;
     appState = { ...appState, currentAnimation: walkAnimation};
   } else if (actionName === 'RUN') {
     runAnimation.play();
     RUN_BTN.classList.add('disabled-btn');
+    RUN_BTN.disabled = true;
     IDLE_BTN.classList.remove('disabled-btn');
+    IDLE_BTN.disabled = false;
     WALK_BTN.classList.remove('disabled-btn');
+    WALK_BTN.disabled = false;
     appState = { ...appState, currentAnimation: runAnimation};
   }
 }
@@ -104,8 +113,32 @@ function handlePauseButton() {
 
     if (appState.currentAnimation.paused) {
       PAUSE_BTN.textContent = '⏵︎';
+      PAUSE_BTN.classList.add('is-paused');
+      RUN_BTN.disabled = true;
+      WALK_BTN.disabled = true;
+      IDLE_BTN.disabled = true;
+      RUN_BTN.classList.add('disabled-btn');
+      WALK_BTN.classList.add('disabled-btn');
+      IDLE_BTN.classList.add('disabled-btn');
     } else {
       PAUSE_BTN.textContent = '⏸︎';
+      PAUSE_BTN.classList.remove('is-paused');
+      if (appState.currentAnimation._clip.name === 'SprintingAction') {
+        WALK_BTN.disabled = false;
+        IDLE_BTN.disabled = false;
+        WALK_BTN.classList.remove('disabled-btn');
+        IDLE_BTN.classList.remove('disabled-btn');
+      } else if (appState.currentAnimation._clip.name === 'WalkingAction') {
+        RUN_BTN.disabled = false;
+        IDLE_BTN.disabled = false;
+        RUN_BTN.classList.remove('disabled-btn');
+        IDLE_BTN.classList.remove('disabled-btn');
+      } else if (appState.currentAnimation._clip.name === 'IdleAction') {
+        WALK_BTN.disabled = false;
+        RUN_BTN.disabled = false;
+        WALK_BTN.classList.remove('disabled-btn');
+        RUN_BTN.classList.remove('disabled-btn');
+      }
     }
   }
 }

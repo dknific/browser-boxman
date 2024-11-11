@@ -6,7 +6,7 @@ body {
 .socials-container {
   position: absolute;
   right: 0;
-  top: 6px;
+  top: 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -23,8 +23,8 @@ body {
 }
 
 .photo-holder {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background-image: url("/apple-touch-icon.png");
   background-position: center;
@@ -51,29 +51,37 @@ h1 {
   margin: 0;
 }
 
-h2 {
+.mobile-instructions > p {
+  padding-left: 12px;
   font-style: italic;
   font-weight: normal;
-  font-size: 20px;
-  margin-top: 0;
+  font-size: 18px;
+  margin: 0 0 2px 0;
 }
 
 canvas {
   width: 100% !important;
 }
 
+.desktop-instructions {
+  display: none;
+}
+
 .button-container {
-  width: 100%;
+  width: 290px;
+  left: 50%;
+  margin-left: -145px;
   position: absolute;
   height: 44px;
-  bottom: 0;
+  bottom: 48px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding-bottom: 14px;
+  justify-content: space-between;
   opacity: 0;
   animation: introFadeIn 1s linear forwards;
   animation-delay: 1.5s;
+  border-top: 1px solid #0000001c;
+  padding-top: 18px;
 }
 
 .button-container p {
@@ -83,80 +91,45 @@ canvas {
 }
 
 .custom-button {
-  align-items: center;
-  background-clip: padding-box;
-  background-color: #fa6400;
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-  box-sizing: border-box;
-  color: #fff;
+  
+  display: inline-block;
+  outline: 0;
+  border: 0;
   cursor: pointer;
-  display: inline-flex;
-  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  background-color: #67a3d4;
+  border-radius: 4px;
+  padding: 13px 18px;
   font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 0;
-  padding: 8px 10px;
-  position: relative;
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-  width: auto;
+  font-weight: 700;
+  color: white;
+  line-height: 26px;
+
 }
 
 .custom-button:hover,
 .custom-button:focus {
-  background-color: #fb8332;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
 
-.custom-button:hover {
-  transform: translateY(-1px);
-}
-
-.custom-button:active {
-  background-color: #c85000;
-  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
-  transform: translateY(0);
-}
-
-.custom-button.walk-btn {
-  background-color: green;
-}
-.custom-button.walk-btn:hover {
-  background-color: #3da23d
-}
-
-.custom-button.idle-btn {
-  background-color: #7878a5;
-}
-.custom-button.idle-btn:hover {
-  background-color: #8585b4;
-}
-
-.custom-button.run-btn {
-  background-color: #d3721e;
-}
-.custom-button.run-btn:hover {
-  background-color: #f78a2c;
-}
-
 .disabled-btn {
-  opacity: 0.4;
+  background-color: #67a3d497;
+  opacity: 0.5;
+}
+
+.pause-btn {
+  background: #fa4848;
+}
+.pause-btn.is-paused {
+  background: #1ED760;
+  padding: 10px 18px;
+  border-radius: 50%;
+  animation: buttonGlow 0.6s linear infinite alternate;
 }
 
 @media (min-width: 924px) {
   .socials-container {
     flex-direction: row;
     top: 0;
-    left: 0;
-    right: unset;
     padding: 8px;
   }
 
@@ -164,11 +137,22 @@ canvas {
     padding: 0 3px;
   }
 
+  .socials-container svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .photo-holder {
+    width: 32px;
+    height: 32px;
+  }
+
   .home-link:hover {
     opacity: 0.6;
   }
   h1 {
     font-size: 52px;
+    padding-left: 0;
   }
 
   h2 {
@@ -184,13 +168,46 @@ canvas {
     padding-top: 24px;
   }
 
+  .mobile-instructions {
+    display: none;
+  }
+
+  .desktop-instructions {
+    display: block;
+  }
+
+  .desktop-instructions p {
+    display: block;
+      font-style: italic;
+      font-weight: normal;
+      font-size: 18px;
+      margin: 0 0 2px 0;
+  }
+
   .button-container {
-    padding: 0;
-    bottom: 40px;
+    padding: 18px 0 0 0;
+  }
+
+  .custom-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .disabled-btn {
+    cursor: default;
+  }
+
+  .disabled-btn:hover {
+    transform: none;
+    box-shadow: none;
   }
 }
 
 @keyframes introFadeIn {
   from { opacity: 0 }
   to { opacity: 1 }
+}
+
+@keyframes buttonGlow {
+  from { box-shadow: 0 0 16px 10px #47ff5f00 }
+  to { box-shadow: 0 0 16px 10px #47ff5fb3 }
 }
