@@ -2,20 +2,21 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+// Constants and App State:
 const IDLE_BTN = document.getElementsByClassName('idle-btn')[0];
 const PAUSE_BTN = document.getElementsByClassName('pause-btn')[0];
 const RUN_BTN = document.getElementsByClassName('run-btn')[0];
 const WALK_BTN = document.getElementsByClassName('walk-btn')[0];
+let runAnimation, idleAnimation, walkAnimation, mixer;
 
 let appState = {
-  cameraIsLerping: true,
+  cameraIsLerping: true, // used to stop camera from lerping
   currentAnimation: undefined,
   isMeshLoaded: false,
   isAnimationPaused: false,
 }
-let runAnimation, idleAnimation, walkAnimation, mixer;
 
-// Instantiate & Configure Scene Utils:
+// Scene & Camera:
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('#c9c9c9');
 const camera = new THREE.PerspectiveCamera(
@@ -41,19 +42,20 @@ controls.target.set(0,0,0);
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.9); // Color and intensity
 const hemisphereLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
 
-// Plane Mesh:
-const planeGeometry = new THREE.PlaneGeometry(60,60);
-const whiteMaterial = new THREE.MeshBasicMaterial({
-  color: '#e6e6e6',
-  side: THREE.DoubleSide
+// Create Mesh - Ground Plane:
+const wireframeMaterial = new THREE.MeshStandardMaterial({
+  color: '#878787',
+  wireframe: true,
+  emissive: '#878787'
 });
-const plane = new THREE.Mesh(planeGeometry, whiteMaterial);
+const planeGeometry = new THREE.PlaneGeometry(60, 60, 48, 48);
+const plane = new THREE.Mesh(planeGeometry, wireframeMaterial);
 plane.rotation.x = 1.57;
 plane.position.y = -1;
 
 scene.add(ambientLight, hemisphereLight, plane);
 
-// Load Character Mesh & Store Armature Actions:
+// Load External Mesh & Store Its Actions for Animation:
 const glbLoader = new GLTFLoader();
 glbLoader.load('/boxman.glb', glbFile => {
   const glbMesh = glbFile.scene;
@@ -70,10 +72,14 @@ glbLoader.load('/boxman.glb', glbFile => {
   walkAnimation.timeScale = 1.25;
   runAnimation.play();
 
+  // Start CSS fade-in for UI text by removing the hidden class:
+  document.querySelectorAll('.hidden').forEach(el => el.classList.remove('hidden'));
   appState = { ...appState, currentAnimation: runAnimation, isMeshLoaded: true };
 });
 
-// Event handlers for User Events:
+// When a user clicks on a button to change the character
+// animation, stop the currentAnimation and use the parameter
+// actionName to determine which buttons in the UI to gray out:
 function handleActionClick(actionName) {
   appState.currentAnimation.stop();
 
@@ -107,6 +113,9 @@ function handleActionClick(actionName) {
   }
 }
 
+// When a user clicks the pause button, update the pause property
+// on appState.currentAnimation, handle logic of graying out specific
+// buttons, and update the symbol on the pause button itself:
 function handlePauseButton() {
   if (mixer) {
     appState.currentAnimation.paused = !appState.currentAnimation.paused;
@@ -158,13 +167,13 @@ window.addEventListener('resize', handleWindowResize, false);
 // Append Three.js App to the DOM & call Animation function:
 document.body.appendChild(renderer.domElement);
 
-// Camera Lerp Settings:
+// Set up an animation lerp for the intro camera zoom in:
 const clock = new THREE.Clock();
 const startVector = new THREE.Vector3(56.1, 14.3, 76.6);
 const endVector = new THREE.Vector3(3.4, 0.9, 4.6);
 let lerpFactor = 0;
 
-// Animation loop:
+// Three.js Entry Point:
 function animate() {
   const delta = clock.getDelta();
 
@@ -172,6 +181,7 @@ function animate() {
     mixer.update(delta);
   }
 
+  // If the mesh has finally loaded, begin intro animation:
   if (appState.cameraIsLerping && appState.isMeshLoaded) {
     const lerpSpeed = 0.7;
     lerpFactor += lerpSpeed * delta;
@@ -180,10 +190,12 @@ function animate() {
     camera.position.lerpVectors(startVector, endVector, lerpFactor);
     camera.lookAt(controls.target);
 
+    // If camera has lerped to the end, update appState and
+    // disallow OrbitControls from going out that far again:
     if (lerpFactor >= 1) {
       appState = { ...appState, cameraIsLerping: false };
       controls.maxDistance = 16;
-      controls.maxPolarAngle = 1.7;
+      controls.maxPolarAngle = 1.63;
       controls.enablePan = false;
     }
   }

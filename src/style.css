@@ -1,30 +1,74 @@
+canvas {
+  width: 100% !important;
+}
+
 body {
   margin: 0;
   font-family: 'Roboto', Arial;
 }
 
-.socials-container {
+.header {
   position: absolute;
-  right: 0;
-  top: 14px;
+  color: black;
+  width: 100%;
+  text-align: left;
+  padding-top: 8px;
+}
+
+/* Fade in UI when 3d Model finished loading: */
+.header,
+.socials,
+.action-btns {
+  transition: opacity .25s linear;
+  transition-delay: 1.25s;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+h1, .mobile-instructions > p, .desktop-instructions > p {
+  text-shadow: 1px 1px 5px #c9c9c9c4;
+}
+
+h1, .mobile-instructions > p {
+  padding-left: 12px;
+}
+
+.mobile-instructions > p {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 18px;
+  margin: 0 0 2px 0;
+}
+
+.desktop-instructions {
+  display: none;
+}
+
+/* Social Buttons: */
+.socials {
+  position: absolute;
+  right: 5px;
+  top: 11px;
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
   background: transparent;
   z-index: 99;
-  opacity: 0;
-  animation: introFadeIn 1s linear forwards;
-  animation-delay: 1.5s;
 }
 
-.socials-container a {
+.socials a {
   color: white;
-  padding: 4px 12px;
+  padding: 4px 7px;
 }
 
 .photo-holder {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-image: url("/apple-touch-icon.png");
   background-position: center;
@@ -32,42 +76,8 @@ body {
   background-size: cover;
 }
 
-.text-container {
-  position: absolute;
-  color: black;
-  width: 100%;
-  text-align: left;
-  padding-top: 8px;
-  opacity: 0;
-  animation: introFadeIn 1s linear forwards;
-  animation-delay: 1.5s;
-}
-
-h1, h2 {
-  padding-left: 12px;
-}
-
-h1 {
-  margin: 0;
-}
-
-.mobile-instructions > p {
-  padding-left: 12px;
-  font-style: italic;
-  font-weight: normal;
-  font-size: 18px;
-  margin: 0 0 2px 0;
-}
-
-canvas {
-  width: 100% !important;
-}
-
-.desktop-instructions {
-  display: none;
-}
-
-.button-container {
+/* Action Buttons: */
+.action-btns {
   width: 290px;
   left: 50%;
   margin-left: -145px;
@@ -77,21 +87,17 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  opacity: 0;
-  animation: introFadeIn 1s linear forwards;
-  animation-delay: 1.5s;
-  border-top: 1px solid #0000001c;
+  border-top: 1px solid #00000094;
   padding-top: 18px;
 }
 
-.button-container p {
+.action-btns p {
   font-size: 32px;
   color: #00000024;
   margin: 0 8px;
 }
 
-.custom-button {
-  
+.action-btn {
   display: inline-block;
   outline: 0;
   border: 0;
@@ -103,11 +109,10 @@ canvas {
   font-weight: 700;
   color: white;
   line-height: 26px;
-
 }
 
-.custom-button:hover,
-.custom-button:focus {
+.action-btn:hover,
+.action-btn:focus {
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
 
@@ -127,29 +132,11 @@ canvas {
 }
 
 @media (min-width: 924px) {
-  .socials-container {
-    flex-direction: row;
-    top: 0;
-    padding: 8px;
+  .header {
+    text-align: center;
+    padding-top: 24px;
   }
 
-  .socials-container a {
-    padding: 0 3px;
-  }
-
-  .socials-container svg {
-    width: 32px;
-    height: 32px;
-  }
-
-  .photo-holder {
-    width: 32px;
-    height: 32px;
-  }
-
-  .home-link:hover {
-    opacity: 0.6;
-  }
   h1 {
     font-size: 52px;
     padding-left: 0;
@@ -157,15 +144,6 @@ canvas {
 
   h2 {
     font-size: 18px;
-  }
-
-  a:hover svg path {
-    fill: #eeeeee;
-  }
-
-  .text-container {
-    text-align: center;
-    padding-top: 24px;
   }
 
   .mobile-instructions {
@@ -178,17 +156,37 @@ canvas {
 
   .desktop-instructions p {
     display: block;
-      font-style: italic;
-      font-weight: normal;
-      font-size: 18px;
-      margin: 0 0 2px 0;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 18px;
+    margin: 0 0 2px 0;
   }
 
-  .button-container {
+  /* Social buttons: */
+  a:hover svg path {
+    fill: #8f8f8f;
+  }
+
+  .socials {
+    top: 13px;
+    right: 9px;
+    padding: 8px;
+  }
+
+  .socials a {
+    padding: 0 6px;
+  }
+
+  .home-link:hover {
+    opacity: 0.6;
+  }
+
+  /* Action Buttons: */
+  .action-btns {
     padding: 18px 0 0 0;
   }
 
-  .custom-button:hover {
+  .action-btn:hover {
     transform: translateY(-1px);
   }
 
@@ -202,11 +200,7 @@ canvas {
   }
 }
 
-@keyframes introFadeIn {
-  from { opacity: 0 }
-  to { opacity: 1 }
-}
-
+/* buttonGlow is used for when an animation is paused:  */
 @keyframes buttonGlow {
   from { box-shadow: 0 0 16px 10px #47ff5f00 }
   to { box-shadow: 0 0 16px 10px #47ff5fb3 }
