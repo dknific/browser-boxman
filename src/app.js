@@ -79,7 +79,8 @@ glbLoader.load('/boxman.glb', glbFile => {
 
 // When a user clicks on a button to change the character
 // animation, stop the currentAnimation and use the parameter
-// actionName to determine which buttons in the UI to gray out:
+// actionName to determine which new animation to play and which
+// buttons in the UI to gray out:
 function handleActionClick(actionName) {
   appState.currentAnimation.stop();
 
